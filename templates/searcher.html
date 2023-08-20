@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Flask Weather App - Searcher</title>
+{% endblock %}
+
+{% block body %}
+            <div class="">
+                <form action="/" method="POST">
+                    <input type="text" name="estado" id="estado" placeholder="Insira outro estad(xx)">
+                    <input type="text" name="cidade" id="cidade" placeholder="Insira outra cidade">
+                    <input class="btn btn-success" type="submit" value="Pesquisar Clima">
+                </form>
+            </div>
+            <div class="my-5 border-1">
+                <h4>Exibindo temperatura de {{cidade}}, {{estado}}</h4>
+                <h4>Temperatura Máxima: {{max_temp}} </h4>
+                <h4>Temperatura Mínima: {{min_temp}}</h4>
+            </div>
+        
+{% endblock %}
