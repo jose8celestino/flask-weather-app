@@ -12,17 +12,20 @@ def index():
         cidade = request.form['cidade']
         cidade = cidade.lower()
         url = f'https://www.cptec.inpe.br/{estado}/{cidade}'
-        r = requests.get(url)
-        soup = BeautifulSoup(r.content, 'html.parser')
-        element = soup.find(class_ = 'bloco-previsao d-flex flex-column text-center') 
-        temperatures = element.select('label')
-        normallist = []
-        for i in temperatures: 
-            q = (f"{i}")
-            normallist.append(q[31:34])
-        max_temp = normallist[0]
-        min_temp = normallist[1]
-        return render_template('/searcher.html', max_temp=max_temp, min_temp = min_temp, cidade=cidade, estado=estado)
+        try:
+            r = requests.get(url)
+            soup = BeautifulSoup(r.content, 'html.parser')
+            element = soup.find(class_ = 'bloco-previsao d-flex flex-column text-center') 
+            temperatures = element.select('label')
+            normallist = []
+            for i in temperatures: 
+                q = (f"{i}")
+                normallist.append(q[31:34])
+            max_temp = normallist[0]
+            min_temp = normallist[1]
+            return render_template('/searcher.html', max_temp=max_temp, min_temp = min_temp, cidade=cidade, estado=estado)
+        except:
+            return "Houve um problema ao acessar os dados de temperatura."
     else:
         return render_template('index.html')
 
